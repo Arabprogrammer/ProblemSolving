@@ -1,8 +1,7 @@
 package com.app;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RestoringPassword {
 
@@ -12,15 +11,18 @@ public class RestoringPassword {
 	 */
 
 	public static void main(String[] args) {
-		String input = "01001100100101100000010110001001011001000101100110010110100001011010100101101100";
-		List<String> binaryPassword = new ArrayList<String>();
+		String binaryPassword = "01001100100101100000010110001001011001000101100110010110100001011010100101101100";
+		List<String> binaryDigits = Arrays.asList("0100110000", "0100110010", "0101100000", "0101100010", "0101100100",
+				"0101100110", "0101101000", "0101101010", "0101101100", "0101101110");
 		int index = 0;
-		while (index < input.length()) {
-			System.err.println(input.substring(index, Math.min(index + 10, input.length())));
-			binaryPassword.add(input.substring(index, Math.min(index + 10, input.length())));
+		String password = "";
+		while (index < binaryPassword.length()) {
+			String digit = binaryPassword.substring(index, Math.min(index + 10, binaryPassword.length()));
+			if (binaryDigits.indexOf(digit) != -1) {
+				password += binaryDigits.indexOf(digit);
+			}
 			index += 10;
 		}
-		String password = binaryPassword.stream().map(b -> b.toString()).collect(Collectors.joining());
 		System.err.println(password);
 
 	}
